@@ -1,0 +1,24 @@
+
+# Copy to configs/config.yaml and update paths for your machine
+
+sampling_rate: 256
+
+blocks_of_interest: [1, 2, 4, 8, 10]
+
+cognitive_load_labels:
+  "1": 1
+  "4": 1
+  "10": 1
+  "2": 2
+  "8": 2
+
+dataset:
+  # --- PPG/GSR (CLAS) ---
+  block_details_dir: "/absolute/path/to/CLAS/Block_details"
+  participants_dir: "/absolute/path/to/CLAS/Participants"
+
+  # --- EEG ---
+  eeg_root: "/absolute/path/to/CL_Drive_Database/EEG"
+  labels_root: "/absolute/path/to/CL_Drive_Database/Labels"
+
+outputs_dir: "outputs"
