@@ -1,9 +1,7 @@
 
-# CLAS Cognitive Load Pipeline (EEG, PPG, GSR)
+# Cognitive Load Pipeline (EEG, PPG, GSR)
 
-A cleaned-up, modular version of your Jupyter notebook code for extracting features from **PPG**, **GSR**, and **EEG**, training classic ML models, and optionally fusing modalities. Ready to publish on GitHub.
-
-> ⚠️ **Paths**: This repo uses a YAML config. Copy `configs/config.example.yaml` to `configs/config.yaml` and set your local directories.
+> This repo uses a YAML config. Copy `configs/config.example.yaml` to `configs/config.yaml` and set your local directories.
 
 ## Quickstart
 
@@ -64,12 +62,6 @@ All scripts save CSVs and artifacts to `outputs/` by default:
 - `EEGfeatures.csv`, `EEGlabels.csv`, `EEGfeatures_with_labels.csv`
 
 ---
-
-## Notes & Runtimes
-- GSR: ~20–25 mins  
-- PPG: ~3–5 mins  
-- EEG: ~10–15 mins (depends on data & `EEGEXTRACT2` functions)
-
 ---
 
 ## Repo Structure
@@ -105,4 +97,4 @@ clas-cognitive-load/
 ---
 
 ## Citation / Credit
-- Built on your original notebooks; feature extraction uses `neurokit2` and your `EEGEXTRACT2` utilities.
+- feature extraction uses `neurokit2` and `EEGEXTRACT` utilities.
