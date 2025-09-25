@@ -44,7 +44,7 @@ python scripts/feature_importance.py   --features outputs/PPGfeatures.csv   --la
 - `block_details_dir` contains per-user CSVs with columns like **`Block`** and **`EDA&PPG File`**.
 - `participants_dir` contains per-user directories: `<user_id>/by_block/<csv>`, where each CSV has columns `ppg`, `gsr`.
 
-Special-case file renames (from your notebook):
+Special-case file renames 
 - Block 2 → append `mathtest` before file extension
 - Block 8 → append `IQtest` before file extension
 
