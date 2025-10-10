@@ -14,11 +14,11 @@ cognitive_load_labels:
 
 dataset:
   # --- PPG/GSR (CLAS) ---
-  block_details_dir: "/absolute/path/to/CLAS/Block_details"
-  participants_dir: "/absolute/path/to/CLAS/Participants"
+  block_details_dir: "/Users/cahree/Desktop/MPSC LAB Internship/REU-2024-Cognitive-Load/CLAS_Database/CLAS/Block_details"
+  participants_dir: "/Users/cahree/Desktop/MPSC LAB Internship/REU-2024-Cognitive-Load/CLAS_Database/CLAS/Participants"
 
   # --- EEG ---
-  eeg_root: "/absolute/path/to/CL_Drive_Database/EEG"
-  labels_root: "/absolute/path/to/CL_Drive_Database/Labels"
+  eeg_root: "/Users/cahree/Desktop/MPSC LAB Internship/REU-2024-Cognitive-Load/CL_Drive_Database/EEG"
+  labels_root: "/Users/cahree/Desktop/MPSC LAB Internship/REU-2024-Cognitive-Load/CL_Drive_Database/Labels"
 
 outputs_dir: "outputs"

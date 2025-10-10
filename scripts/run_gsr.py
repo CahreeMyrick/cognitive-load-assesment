@@ -1,7 +1,7 @@
 
 import argparse
-from clascl.utils import load_config
-from clascl.gsr import extract_and_save_gsr_features
+from src.clascl.utils import load_config
+from src.clascl.gsr import extract_and_save_gsr_features
 
 def main():
     ap = argparse.ArgumentParser()

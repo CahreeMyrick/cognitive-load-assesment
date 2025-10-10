@@ -1,7 +1,7 @@
 
 import argparse, os
 import pandas as pd
-from clascl.models import train_and_eval
+from src.clascl.models import train_and_eval
 
 def main():
     ap = argparse.ArgumentParser()

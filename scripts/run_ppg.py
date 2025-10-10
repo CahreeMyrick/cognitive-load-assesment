@@ -1,7 +1,7 @@
 
 import argparse
-from clascl.utils import load_config
-from clascl.ppg import extract_and_save_ppg_features
+from src.clascl.utils import load_config
+from src.clascl.ppg import extract_and_save_ppg_features
 
 def main():
     ap = argparse.ArgumentParser()

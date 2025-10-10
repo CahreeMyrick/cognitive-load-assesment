@@ -1,7 +1,7 @@
 
 import argparse
-from clascl.utils import load_config
-from clascl.eeg import extract_and_save_eeg_features
+from src.clascl.utils import load_config
+from src.clascl.eeg import extract_and_save_eeg_features
 
 def main():
     ap = argparse.ArgumentParser()
