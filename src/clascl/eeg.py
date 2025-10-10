@@ -6,7 +6,6 @@ import pandas as pd
 from typing import Tuple, List
 from .utils import ensure_dir
 
-# Import your custom EEGEXTRACT2 (must be on PYTHONPATH)
 import EEGEXTRACT2 as eeg
 
 FS = 256
