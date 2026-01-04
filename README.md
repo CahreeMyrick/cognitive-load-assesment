@@ -73,9 +73,7 @@ clas-cognitive-load/
 │   ├── run_gsr.py
 │   ├── run_ppg.py
 │   ├── run_eeg.py
-│   ├── run_eeg_mlp.py
 │   ├── run_fusion.py
-│   ├── run_late_fusion.py
 │   ├── benchmark.py
 │   ├── feature_importance.py
 ├── src/
@@ -85,7 +83,6 @@ clas-cognitive-load/
 │       ├── gsr.py
 │       ├── ppg.py
 │       ├── eeg.py
-├── tests/
 ├── requirements.txt
 ├── README.md
 └── LICENSE
