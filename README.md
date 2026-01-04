@@ -18,20 +18,17 @@ cp configs/config.example.yaml configs/config.yaml
 # ...edit configs/config.yaml to point to your local data folders
 
 # 4) Run pipelines
-python scripts/run_gsr.py --config configs/config.yaml
-python scripts/run_ppg.py --config configs/config.yaml
-python scripts/run_eeg.py --config configs/config.yaml
+# EEG only
+python -m scripts.run_fusion --config configs/config.yaml --use_eeg
 
-# 5) Multimodal fusion (PPG+GSR)
-python scripts/run_fusion.py --config configs/config.yaml
+# PPG + GSR (multimodal fusion)
+python -m scripts.run_fusion --config configs/config.yaml --use_ppg --use_gsr
 
-# 6) Benchmark from any saved CSVs
-python scripts/benchmark.py   --features outputs/EEGfeatures.csv   --labels outputs/EEGlabels.csv
 ```
 
 ### Feature Importance (Random Forest MDI)
 ```bash
-python scripts/feature_importance.py   --features outputs/PPGfeatures.csv   --labels outputs/PPGlabels.csv   --out outputs/ppg_feature_importance.png   --title "PPG Feature Importances"
+python -m scripts.feature_importance   --features outputs/PPGfeatures.csv   --labels outputs/PPGlabels.csv   --out outputs/ppg_feature_importance.png   --title "PPG Feature Importances"
 ```
 
 > You can also run it for GSR/EEG by changing the inputs.
@@ -71,27 +68,28 @@ clas-cognitive-load/
 ├── configs/
 │   ├── config.example.yaml
 ├── notebooks/
-├── outputs/                  # created at runtime
+├── outputs/
 ├── scripts/
 │   ├── run_gsr.py
 │   ├── run_ppg.py
 │   ├── run_eeg.py
+│   ├── run_eeg_mlp.py
 │   ├── run_fusion.py
+│   ├── run_late_fusion.py
 │   ├── benchmark.py
 │   ├── feature_importance.py
 ├── src/
 │   └── clascl/
-│       ├── __init__.py
 │       ├── utils.py
 │       ├── models.py
 │       ├── gsr.py
 │       ├── ppg.py
 │       ├── eeg.py
 ├── tests/
-├── .gitignore
-├── LICENSE
+├── requirements.txt
 ├── README.md
-└── requirements.txt
+└── LICENSE
+
 ```
 
 ---
