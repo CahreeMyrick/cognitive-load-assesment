@@ -172,3 +172,4 @@ def feature_extraction(eegData, bin_min, bin_max, binWidth):
     )
 
     return X, feature_names
+

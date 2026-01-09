@@ -1,15 +1,19 @@
 # src/clascl/ppg.py
 from __future__ import annotations
-import os, glob, warnings
+
+import os
+import glob
+import warnings
+
 import numpy as np
 import pandas as pd
 import neurokit2 as nk
 
-from src.clascl.utils import ensure_dir, block_specific_filename
+from src.utils import ensure_dir, block_specific_filename
 
 
 # ===============================
-#Silence  NeuroKit warnings
+# Silence NeuroKit warnings
 # ===============================
 warnings.filterwarnings(
     "ignore",
@@ -62,9 +66,9 @@ def extract_and_save_ppg_features(cfg: dict):
 
                 ppg = df["ppg"].values.astype(float)
 
-                # -------------------------------
-                # Clean + peak detection
-                # -------------------------------
+                # ----------------------------------
+                # Clean PPG + peak detection
+                # ----------------------------------
                 ppg_signals, info = nk.ppg_process(
                     ppg,
                     sampling_rate=sr,
@@ -75,23 +79,45 @@ def extract_and_save_ppg_features(cfg: dict):
                 if peaks is None or len(peaks) < 3:
                     raise ValueError("Insufficient PPG peaks")
 
-                # -------------------------------
-                # HRV (time-domain ONLY)
-                # -------------------------------
+                ppg_clean = ppg_signals["PPG_Clean"].values
+
+                # ----------------------------------
+                # HRV (time-domain only)
+                # ----------------------------------
                 hrv = nk.hrv_time(
                     peaks,
                     sampling_rate=sr,
                     show=False
                 )
 
+                # ----------------------------------
+                # Approximate Entropy (ApEn)
+                # ----------------------------------
+                m = 2
+                r = 0.2 * np.std(ppg_clean)
+
+                if r <= 0 or len(ppg_clean) < 100:
+                    raise ValueError("PPG signal unsuitable for ApEn")
+
+                apen = nk.entropy_approximate(
+                    ppg_clean,
+                    delay=1,
+                    dimension=m,
+                    tolerance=r
+                )[0]
+
+                # ----------------------------------
+                # Feature vector
+                # ----------------------------------
                 feat = {
                     "HRV_RMSSD": hrv["HRV_RMSSD"].iloc[0],
                     "HRV_MeanNN": hrv["HRV_MeanNN"].iloc[0],
                     "HRV_SDNN": hrv["HRV_SDNN"].iloc[0],
-                    "PPG_Clean_Mean": ppg_signals["PPG_Clean"].mean(),
+                    "PPG_Clean_Mean": ppg_clean.mean(),
+                    "PPG_ApEn": apen,
                 }
 
-                # Safety: skip NaN rows
+                # Skip NaN rows
                 if np.any(pd.isna(list(feat.values()))):
                     raise ValueError("NaN in extracted features")
 
@@ -103,8 +129,13 @@ def extract_and_save_ppg_features(cfg: dict):
                     f"[PPG] Skip user {user_id}, block {block}: {e}"
                 )
 
+    # ----------------------------------
+    # Save outputs
+    # ----------------------------------
     features_df = pd.DataFrame(features).reset_index(drop=True)
-    labels_df = pd.DataFrame(labels, columns=["Cognitive_Load_Label"])
+    labels_df = pd.DataFrame(
+        labels, columns=["Cognitive_Load_Label"]
+    )
 
     combined = pd.concat([features_df, labels_df], axis=1)
 
@@ -115,7 +146,8 @@ def extract_and_save_ppg_features(cfg: dict):
         os.path.join(outdir, "PPGlabels.csv"), index=False
     )
     combined.to_csv(
-        os.path.join(outdir, "PPGfeatures_with_labels.csv"), index=False
+        os.path.join(outdir, "PPGfeatures_with_labels.csv"),
+        index=False
     )
 
     print(

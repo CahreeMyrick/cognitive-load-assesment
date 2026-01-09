@@ -4,9 +4,10 @@ import glob
 import numpy as np
 import pandas as pd
 
-from .utils import ensure_dir
 from . import eegextract as eeg
+from src.utils import ensure_dir
 
+# sampling rate
 FS = 256
 
 
@@ -29,14 +30,6 @@ def extract_all_user_eeg_dirs(root: str):
     return sorted(p for p in glob.glob(os.path.join(root, "*")) if os.path.isdir(p))
 
 
-def normalize_to_custom_range(data: np.ndarray, new_min: float, new_max: float):
-    mn = np.min(data)
-    mx = np.max(data)
-    if mx == mn:
-        return np.zeros_like(data)
-    return (data - mn) / (mx - mn) * (new_max - new_min) + new_min
-
-
 def segment_data_func(
     file: str,
     sfreq: int = FS,
@@ -45,7 +38,7 @@ def segment_data_func(
 ):
     df = pd.read_csv(file)
 
-    # 🔧 Interpolate NaNs first
+    #  Interpolate NaNs first
     if df.isna().any().any():
         df = df.interpolate(method="linear", limit=50)
         if df.isna().any().any():
@@ -69,18 +62,24 @@ def segment_data_func(
 
     return data
 
+def normalize_to_custom_range(data: np.ndarray, new_min: float, new_max: float):
+    mn = np.min(data)
+    mx = np.max(data)
+    if mx == mn:
+        return np.zeros_like(data)
+    return (data - mn) / (mx - mn) * (new_max - new_min) + new_min
 
 def extract_and_save_eeg_features(cfg: dict):
     eeg_root = cfg["dataset"]["eeg_root"]
     labels_root = cfg["dataset"]["labels_root"]
-    outdir = cfg.get("outputs_dir", "outputs")
+    outdir = cfg["outputs_dir"]
 
     ensure_dir(outdir)
 
     X_all = []
     y_all = []
     feature_names = None
-
+    
     for udir in extract_all_user_eeg_dirs(eeg_root):
         user_id = extract_user_id(udir)
         label_path = os.path.join(labels_root, f"{user_id}.csv")
