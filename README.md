@@ -17,12 +17,15 @@ pip install -r requirements.txt
 cp configs/config.example.yaml configs/config.yaml
 # ...edit configs/config.yaml to point to your local data folders
 
-# 4) Run pipelines
+# 4) Feature Extraction
+python -m scripts.run_feature_extraction --config configs/config.yaml --mode ppg
+
+# 5) Run models
 # EEG only
-python -m scripts.run_fusion --config configs/config.yaml --use_eeg
+python -m scripts.run_models --config configs/config.yaml --mode eeg
 
 # PPG + GSR (multimodal fusion)
-python -m scripts.run_fusion --config configs/config.yaml --use_ppg --use_gsr
+python -m scripts.run_models --config configs/config.yaml --mode gsr_ppg
 
 ```
 
@@ -67,22 +70,19 @@ All scripts save CSVs and artifacts to `outputs/` by default:
 clas-cognitive-load/
 ├── configs/
 │   ├── config.example.yaml
-├── notebooks/
-├── outputs/
 ├── scripts/
-│   ├── run_gsr.py
-│   ├── run_ppg.py
-│   ├── run_eeg.py
-│   ├── run_fusion.py
+│   ├── run_feature_extraction.py
+│   ├── run_models.py
 │   ├── benchmark.py
 │   ├── feature_importance.py
 ├── src/
 │   └── clascl/
-│       ├── utils.py
-│       ├── models.py
 │       ├── gsr.py
 │       ├── ppg.py
+|   └── cl_drive/
+|       ├── eegextract.py
 │       ├── eeg.py
+|   ├── utils.py
 ├── requirements.txt
 ├── README.md
 └── LICENSE
