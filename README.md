@@ -40,7 +40,7 @@ python -m scripts.feature_importance   --features outputs/PPGfeatures.csv   --la
 
 ## Expected Data Layouts
 
-### PPG/GSR (CLAS)
+### PPG/GSR (CLAS Dataset https://ieee-dataport.org/open-access/database-cognitive-load-affect-and-stress-recognition)
 - `block_details_dir` contains per-user CSVs with columns like **`Block`** and **`EDA&PPG File`**.
 - `participants_dir` contains per-user directories: `<user_id>/by_block/<csv>`, where each CSV has columns `ppg`, `gsr`.
 
@@ -48,7 +48,7 @@ Special-case file renames
 - Block 2 → append `mathtest` before file extension
 - Block 8 → append `IQtest` before file extension
 
-### EEG (CL-Drive)
+### EEG (CL-Drive Dataset https://arxiv.org/abs/2304.04273)
 - `eeg_root` contains per-user directories, each with files named like `...data_level{N}.csv` (N = level).
 - `labels_root` has `<user_id>.csv` with columns `lvl_{N}` containing integer ratings 1–9 which we map to `low` (1–3), `medium` (4–6), `high` (7–9).
 
