@@ -45,7 +45,7 @@ Special-case file renames
 - Block 2 → append `mathtest` before file extension
 - Block 8 → append `IQtest` before file extension
 
-### EEG
+### EEG (CL-Drive)
 - `eeg_root` contains per-user directories, each with files named like `...data_level{N}.csv` (N = level).
 - `labels_root` has `<user_id>.csv` with columns `lvl_{N}` containing integer ratings 1–9 which we map to `low` (1–3), `medium` (4–6), `high` (7–9).
 
